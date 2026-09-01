@@ -15,49 +15,34 @@ function App() {
             <h1 class="text-center">Sobre o projeto</h1>
 
             <p>
-              O <b>fale +</b> é uma plataforma para ajudar,
-              pessoas que tenha dificuldade na fala ou que tenha vergonha.
-              assim elas podem se desenvolver melhor na sociedade e perder o medo de se comunicar
+              Olá, o intuito do nosso projeto é ajudar as pessoas que tem dificuldade de falar em público,
+                    podendo ajudar essas pessoas da melhor maneira possivel a perder o medo da fala em público 
+                    Oferecendo salas personalizadas, conversas com pessoas reais para pedir dicas, caso as pessoas ja estejam ocupadas 
+                teriamos chats de IA disponiveis quando quiser
             </p>
 
             <p>
-              A proposta é reunir em um único lugar informações importantes,
-              ferramentas de organização e recursos de estudo para que você
-              tenha mais autonomia durante sua preparação.
+            Iriamos organizar eventos sociais presencialmente e virtualmente para criar novas amizades e novos laços sociais. 
+            sendo mais acessivel para as pessoas que não possui condição de bancar um curso de oratória ou algo do genero podem se desenvolver melhor na sociedade e perder o medo de se comunicar
             </p>
 
-            <p>
-              Você poderá acompanhar oportunidades, organizar seus estudos,
-              praticar exercícios, realizar simulados e acompanhar sua evolução.
-            </p>
-
-            <h3>Educação gratuita de verdade</h3>
-
-            <p>
-              Não existe mensalidade, assinatura ou plano premium.
-              Todo o conteúdo da plataforma é <i>gratuito</i>.
-            </p>
           </div>
         </div>
         <div id="prices">
           <div class="max-w-lg mx-auto py-6">
-            <h2>Ajude o Curso Popular a continuar gratuito</h2>
+            <h2>Preços</h2>
 
             <p>
-              O <b>Curso Popular</b> é um projeto <i>gratuito</i> e depende
-              da colaboração de pessoas que acreditam
-              que educação deve ser acessível para todos.
+            Para o inicio do projeto, seria de <i>graça</i>.. conforme for expandindo iriamos adicionando alguns planos pagos, mas sem ser aqueles preços abusivos.
+            Deixando acessivel para o publico de idades variadas, tendo 3 tipo de planos diferentes: um sendo barato mas com funções limitadas,
+            um com um preço um pouco maios só que com mais funçoes liberadas e um mais caro que eles só que com o maximo de funções disponiveis do site. 
+            A pessoa ia escolher qual plano cabe no orçamento dela, ou caso os planos nao der para a pessoa.. terá o plano padrão 
             </p>
 
             <p>
               Se a plataforma ajudar você e estiver dentro das suas possibilidades,
               você pode contribuir voluntariamente para ajudar
               na manutenção e evolução do projeto.
-            </p>
-
-            <p>
-              <b>Contato para apoiar o projeto:</b>
-              jhorge.maricus@gmail.com
             </p>
 
             <p>
@@ -68,35 +53,25 @@ function App() {
         </div>
         <div id="features">
           <div class="max-w-lg mx-auto py-6">
-            <h2>O que você ganha usando a plataforma?</h2>
+            <h2>Nossos benefícios:</h2>
             <div class="flex gap-8">
               <div>
                 <h3>Não perca mais oportunidades</h3>
 
                 <p>
-                  Acompanhe editais, datas de abertura, encerramento das inscrições,
-                  pedidos de isenção e outros prazos importantes em um único lugar.
+                   <p>perder o medo de falar em publico, diminuir a ansiedade, ajudar a ter menos dificuldade na
+                   hora de se aprensentar 
+                     para ter uma melhora na fala, na forma que a pessoa se expressa deixando mais
+                     natural</p>
                 </p>
 
                 <p>
-                  Assim, você consegue se organizar com antecedência
-                  e reduz o risco de perder uma oportunidade simplesmente
-                  porque não ficou sabendo do prazo.
+                  Pode ser em apresentação de escola, trabalho, um TCC e por ai vai. 
+                  Podendo também melhorar a pessoa para o mundo do trabalho aumentando a confiança,
+                  facilitando também no ciclo social da pessoa.
                 </p>
-              </div>
-
-              <div>
-                <h3>Tenha clareza sobre o que estudar</h3>
-
-                <p>
-                  Organize os conteúdos que precisam ser estudados
-                </p>
-
-                <p>
-                  Em vez de estudar sem saber se está avançando,
-                  você consegue visualizar seu progresso e identificar
-                  quais assuntos ainda precisam de atenção.
-                </p>
+                  </div>
+                <div>
               </div>
             </div>
           </div>
