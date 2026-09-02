@@ -17,8 +17,8 @@ presets: [
 theme: {
   extend:{
     colors: {
-      primary: '#14aacf',
-      secondary: '#043ba1',
+      primary: '#5c1420',
+      secondary: '#800434',
     },  
   },
 },
