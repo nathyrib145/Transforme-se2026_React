@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { install } from '@twind/core'
 import presetAutoprefix from '@twind/preset-autoprefix'
 import presetTailwind from '@twind/preset-tailwind'
-
+import { BrowserRouter } from 'react-router'
 import './index.css'
 import App from './App.jsx'
 
@@ -18,7 +18,7 @@ theme: {
   extend:{
     colors: {
       primary: '#14aacf',
-      secondary: '#293746',
+      secondary: '#043ba1',
     },  
   },
 },
@@ -27,6 +27,8 @@ theme: {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <BrowserRouter>
     <App />
+    </BrowserRouter>
   </StrictMode>,
 )
