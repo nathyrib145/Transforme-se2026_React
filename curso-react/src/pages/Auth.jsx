@@ -3,11 +3,8 @@ import{useState} from "react";
 
 function Auth() {
   
-  const [batatinha, setBatatinha] = useState(0);
-
-  function sub(){
-    setBatatinha(batatinha - 1)
-  }
+const [email, setEmail] = useState("")
+const [senha, setSenha] = useState("")
 
   return (
     <div>
@@ -17,15 +14,12 @@ function Auth() {
       
       </nav>
       <div class=" text-center flex flex-col ">
-         <div className = "bg-primary rounded-full p-1" onClick={sub}>-</div>
-           {batatinha}
-        <div className = "bg-secondary rounded-full p-1" onClick={() => setBatatinha(batatinha + 1)}>+</div>
-      
+        
         <h2>Login</h2>
         <form className="flex flex-col mx-auto bg-white rounded-xl p-5">
 
-          Email: <input id="lEmail" type="text" placeholder="Digite seu email cadastrado"/>
-          Senha: <input id="lPass" type="password" placeholder="Digite sua senha cadastrada"/>
+          Email: <input id="lEmail" type="text" placeholder="Digite seu email cadastrado" value={email} onChange={(e) => setEmail(e.target.value)}  />{email}
+          Senha: <input id="lPass" type="password" placeholder="Digite sua senha cadastrada" value={senha} onChange={(e) => setSenha(e.target.value)}/>{senha}
 
           <Link className="mt-5 bg-primary text-dark">Entrar</Link>
         </form>
