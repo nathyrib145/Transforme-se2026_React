@@ -5,44 +5,52 @@ import { Link } from 'react-router'
 
 function Painel() {
 
-    const [modal, setModal] = useState(false)
+    const [modal, setModal] = useState(false) //bollean, verdadeiro falso
+    const [users, setUsers] = useState([]) //vetor
+    const [user, setUser] = useState({}) //objeto
 
+    function handleRegister(){
+        const newUsers = [...user, user]
+        setUsers([...users, user]);
+        localStorage.setItem('users', JSON.stringify(newUsers));
+        setUser({})
+        setModal(false);
+
+    }
     return (
 
         
         <>
             {modal && (
-                <div class=" fixed top-0 right-0 bottom-0 left-0 item-center flex justify-center bg-black/50 z-50 rounded  ">
-                    <div id="modalRegister" class="p-5 bg-about rounded-lg shadow-md flex-col bg-red">
+                <div className=" fixed top-0 right-0 bottom-0 left-0 items-center flex justify-center bg-black/50 z-50 rounded  ">
+                    <div id="modalRegister" className="p-5 relative max-w-md w-full rounded-lg shadow-md flex flex-col bg-red-700">
 
-                        <a onClick={() => setModal(false)} id="bt_close" class="bg-red absolute top-0 right-0 px-2 rounded-full hover:shadow-inner-red cursor-pointer">X</a>
+                        <a onClick={() => setModal(false)} id="bt_close" className="bg-red absolute top-0 right-0 px-2 rounded-full hover:shadow-inner-red cursor-pointer">X</a>
 
                         <h2>Novo Cadastro</h2>
 
                         <p>Preencha as informações abaixo</p>
 
-                        <form class="flex-col, ">
+                        <form className="flex flex-col">
 
+                        
                             Nome:
-                            <input id="iName" type="text" placeholder="Digite seu nome inteiro" />
+                            <input onChange={ (e) => setUser({...user, nome: e.target.value})} type="text" placeholder="Digite seu nome inteiro" />
 
                             Email:
-                            <input id="iEmail" type="text" placeholder="Digite seu melhor email" />
+                            <input onChange={ (e) => setUser({...user, email: e.target.value})} type="text" placeholder="Digite seu melhor email" />
 
                             Senha:
-                            <input id="iPass" type="password" placeholder="Letra maiuscula e minuscula" />
+                            <input onChange={ (e) => setUser({...user, senha: e.target.value})} type="password" placeholder="Letra maiuscula e minuscula" />
 
                             Data Nascimento
-                            <input id="iBirth" type="date" placeholder="DD/MM/HH" />
+                            <input onChange={ (e) => setUser({...user, nascimento: e.target.value})} type="date" placeholder="DD/MM/HH" />
 
 
-                            <a id="formRegister" class="mt-5 bg-primary text-white text-center rounded-md py-2">Registrar</a>
-
+                            <a onClick={handleRegister} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Registrar</a>
 
                         </form>
                     </div>
-
-
                 </div>
             )}
             <h2 className="py-2 px-4">Resposta</h2>

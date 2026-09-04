@@ -3,24 +3,24 @@ function Home() {
 
     return (
         <div>
-            <nav class="flex items-center py-3 px-4 shadow-lg fixed top-0 w-full bg-secondary">
-                <a class="mr-2 p-2 hover:bg-primary hover:text-white" href="#about">Sobre</a>
-                <a class="mr-2 p-2 hover:bg-primary hover:text-white" href="#prices">Preços</a>
-                <a class="mr-2 p-2 hover:bg-primary hover:text-white" href="#features">Benefícios</a>
-                <Link class="mr-5 py-2 px-4 bg-primary hover:shadow-inner rounded text-white ml-auto shadow" to="/auth">Acessar</Link>
+            <nav class="flex items-center py-3 px-4 shadow-lg fixed top-0 w-full bg-red-900">
+                <a class="mr-2 p-2 rounded-full hover:bg-red-600  hover:text-white" href="#about">Sobre</a>
+                <a class="mr-2 p-2 rounded-full hover:bg-red-600  hover:text-white" href="#prices">Preços</a>
+                <a class="mr-2 rounded-full p-2 hover:bg-red-600 hover:text-white" href="#features">Benefícios</a>
+                <Link class="mr-5 py-2 px-4 bg-primary hover:shadow-inner rounded-full text-white ml-auto " to="/auth">Acessar</Link>
             </nav>
             <div>
                 <div id="about">
-                    <div class="max-w-lg mx-auto py-6">
+                    <div class="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
                         <h1 class="text-center">Sobre o projeto</h1>
-
+                        
                         <p>
                             Olá, o intuito do nosso projeto é ajudar as pessoas que tem dificuldade de falar em público,
                             podendo ajudar essas pessoas da melhor maneira possivel a perder o medo da fala em público
                             Oferecendo salas personalizadas, conversas com pessoas reais para pedir dicas, caso as pessoas ja estejam ocupadas
                             teriamos chats de IA disponiveis quando quiser
                         </p>
-
+                        
                         <p>
                             Iriamos organizar eventos sociais presencialmente e virtualmente para criar novas amizades e novos laços sociais.
                             sendo mais acessivel para as pessoas que não possui condição de bancar um curso de oratória ou algo do genero podem se desenvolver melhor na sociedade e perder o medo de se comunicar
@@ -29,7 +29,7 @@ function Home() {
                     </div>
                 </div>
                 <div id="prices">
-                    <div class="max-w-lg mx-auto py-6">
+                    <div class="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
                         <h2>Preços</h2>
 
                         <p>
@@ -52,7 +52,7 @@ function Home() {
                     </div>
                 </div>
                 <div id="features">
-                    <div class="max-w-lg mx-auto py-6">
+                    <div class="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
                         <h2>Nossos benefícios:</h2>
                         <div class="flex gap-8">
                             <div>
