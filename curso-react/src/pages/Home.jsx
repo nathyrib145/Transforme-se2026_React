@@ -3,16 +3,16 @@ function Home() {
 
     return (
         <div>
-            <nav class="flex items-center py-3 px-4 shadow-lg fixed top-0 w-full bg-red-900">
-                <a class="mr-2 p-2 rounded-full hover:bg-red-600  hover:text-white" href="#about">Sobre</a>
-                <a class="mr-2 p-2 rounded-full hover:bg-red-600  hover:text-white" href="#prices">Preços</a>
-                <a class="mr-2 rounded-full p-2 hover:bg-red-600 hover:text-white" href="#features">Benefícios</a>
-                <Link class="mr-5 py-2 px-4 bg-primary hover:shadow-inner rounded-full text-white ml-auto " to="/auth">Acessar</Link>
+            <nav className="flex items-center py-3 px-4 shadow-lg fixed top-0 w-full bg-red-900">
+                <a className="mr-2 p-2 rounded-full hover:bg-red-600  hover:text-white" href="#about">Sobre</a>
+                <a className="mr-2 p-2 rounded-full hover:bg-red-600  hover:text-white" href="#prices">Preços</a>
+                <a className="mr-2 rounded-full p-2 hover:bg-red-600 hover:text-white" href="#features">Benefícios</a>
+                <Link className="mr-5 py-2 px-4 bg-primary hover:shadow-inner rounded-full text-white ml-auto " to="/auth">Acessar</Link>
             </nav>
             <div>
                 <div id="about">
-                    <div class="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
-                        <h1 class="text-center">Sobre o projeto</h1>
+                    <div className="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
+                        <h1 className="text-center">Sobre o projeto</h1>
                         
                         <p>
                             Olá, o intuito do nosso projeto é ajudar as pessoas que tem dificuldade de falar em público,
@@ -29,7 +29,7 @@ function Home() {
                     </div>
                 </div>
                 <div id="prices">
-                    <div class="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
+                    <div className="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
                         <h2>Preços</h2>
 
                         <p>
@@ -52,18 +52,18 @@ function Home() {
                     </div>
                 </div>
                 <div id="features">
-                    <div class="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
+                    <div className="max-w-lg mx-auto py-6 shadow-lg shadow-red-700">
                         <h2>Nossos benefícios:</h2>
-                        <div class="flex gap-8">
+                        <div className="flex gap-8">
                             <div>
                                 <h3>Não perca mais oportunidades</h3>
 
-                                <p>
+                                
                                     <p>perder o medo de falar em publico, diminuir a ansiedade, ajudar a ter menos dificuldade na
                                         hora de se aprensentar
                                         para ter uma melhora na fala, na forma que a pessoa se expressa deixando mais
                                         natural</p>
-                                </p>
+                                
 
                                 <p>
                                     Pode ser em apresentação de escola, trabalho, um TCC e por ai vai.
@@ -83,4 +83,4 @@ function Home() {
         </div>
     )
 }
-export default Home
+export default Home;

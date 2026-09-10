@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router'
+
 
 
 
@@ -8,10 +9,26 @@ function Painel() {
     const [modal, setModal] = useState(false) //bollean, verdadeiro falso
     const [users, setUsers] = useState([]) //vetor
     const [user, setUser] = useState({}) //objeto
+    const [logged, setlogged] = useState({})
+
+    useEffect( ()=>{
+        const logged = JSON.parse(localStorage.getItem("logged"))
+        setlogged(logged)
+    },[]);
+    useEffect( ()=>{
+        const usersTemp = JSON.parse(localStorage.getItem('users'))
+        if (usersTemp) setUsers(usersTemp)
+    },[]);
+
+    function updateUser(pUser){
+        setModal(true)
+        setUser(pUser)
+
+    }
 
     function handleRegister(){
-        const newUsers = [...user, user]
-        setUsers([...users, user]);
+        const newUsers = [...users, user]
+        setUsers(newUsers);
         localStorage.setItem('users', JSON.stringify(newUsers));
         setUser({})
         setModal(false);
@@ -19,8 +36,9 @@ function Painel() {
     }
     return (
 
-        
+       
         <>
+        <h3>Bem vindo, {logged?.nome}</h3> 
             {modal && (
                 <div className=" fixed top-0 right-0 bottom-0 left-0 items-center flex justify-center bg-black/50 z-50 rounded  ">
                     <div id="modalRegister" className="p-5 relative max-w-md w-full rounded-lg shadow-md flex flex-col bg-red-700">
@@ -35,10 +53,10 @@ function Painel() {
 
                         
                             Nome:
-                            <input onChange={ (e) => setUser({...user, nome: e.target.value})} type="text" placeholder="Digite seu nome inteiro" />
+                            <input value = {user.nome} onChange={ (e) => setUser({...user, nome: e.target.value})} type="text" placeholder="Digite seu nome inteiro" />
 
                             Email:
-                            <input onChange={ (e) => setUser({...user, email: e.target.value})} type="text" placeholder="Digite seu melhor email" />
+                            <input value = {user.email} onChange={ (e) => setUser({...user, email: e.target.value})} type="text" placeholder="Digite seu melhor email" />
 
                             Senha:
                             <input onChange={ (e) => setUser({...user, senha: e.target.value})} type="password" placeholder="Letra maiuscula e minuscula" />
@@ -57,12 +75,23 @@ function Painel() {
             <h2 className="py-2 px-4"></h2>
             <table className="py-2 px-4 mb-15">
                 <thead>
+                    <tr>
                     <th className="text-white">Nome</th>
                     <th className="text-white">Email</th>
                     <th className="text-white">Ações</th>
+                    </tr>
                 </thead>
                 <tbody className="font-secondary">
-
+                {users.map( u => (
+                    <tr>
+                        <td>{u.nome}</td>
+                        <td>{u.email}</td>
+                        <td>
+                            <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-green-500' onClick={()=> updateUser(u)}>V</a>
+                            <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-red-500'>X</a>
+                        </td>
+                    </tr>
+                ))}
                 </tbody>
             </table>
             <a onClick= {() => setModal(true)} className= "rounded-full bg-primary text-white px-4 py-2 fixed bottom-0 right-0">+</a>
@@ -71,5 +100,7 @@ function Painel() {
 
     )
 }
+
+
 
 export default Painel;
