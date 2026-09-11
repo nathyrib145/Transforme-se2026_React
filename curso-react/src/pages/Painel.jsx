@@ -10,6 +10,8 @@ function Painel() {
     const [users, setUsers] = useState([]) //vetor
     const [user, setUser] = useState({}) //objeto
     const [logged, setlogged] = useState({})
+    const [isEdit, setIsEdit] = useState(false)
+    const [index, setIndex] = useState(-1)
 
     useEffect( ()=>{
         const logged = JSON.parse(localStorage.getItem("logged"))
@@ -20,20 +22,40 @@ function Painel() {
         if (usersTemp) setUsers(usersTemp)
     },[]);
 
-    function updateUser(pUser){
+    function updateUser(indice){
         setModal(true)
-        setUser(pUser)
+        setUser( users[indice] )
+        setIndex(indice)
+    }
+
+    function deleteUser(index){
+        const newUsers = users.filter((u, i) =>{ 
+            return i != index
+        })
+        setUsers(newUsers);
+        localStorage.getItem('users', JSON.stringify(newUsers));
 
     }
 
-    function handleRegister(){
-        const newUsers = [...users, user]
+    function handleRegister(){ 
+        let newUsers = [] 
+        if(index != -1){
+            newUsers = [...users]
+            newUsers[index] = user; 
+        }else{
+            const newUsers = [...users, user]
+            newUsers[i] = user
+        }
+        
         setUsers(newUsers);
         localStorage.setItem('users', JSON.stringify(newUsers));
         setUser({})
-        setModal(false);
+        setModal(false)
+        setIndex(-1)
+        setIsEdit(false)
 
     }
+
     return (
 
        
@@ -43,12 +65,13 @@ function Painel() {
                 <div className=" fixed top-0 right-0 bottom-0 left-0 items-center flex justify-center bg-black/50 z-50 rounded  ">
                     <div id="modalRegister" className="p-5 relative max-w-md w-full rounded-lg shadow-md flex flex-col bg-red-700">
 
-                        <a onClick={() => setModal(false)} id="bt_close" className="bg-red absolute top-0 right-0 px-2 rounded-full hover:shadow-inner-red cursor-pointer">X</a>
+                        <a onClick={() => {setModal(false); setIsEdit(false); setIndex(-1); setUser({})}} className="bg-red absolute top-0 right-0 px-2 rounded-full hover:shadow-inner-red cursor-pointer">X</a>
 
                         <h2>Novo Cadastro</h2>
 
                         <p>Preencha as informações abaixo</p>
 
+                        {isEdit ? (
                         <form className="flex flex-col">
 
                         
@@ -66,8 +89,18 @@ function Painel() {
 
 
                             <a onClick={handleRegister} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Registrar</a>
+                           {index != -1 && <a onClick={()=> setIsEdit (false)} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Cancelar</a>}
 
-                        </form>
+                        </form>): //else 
+                        (
+                            <>
+                           <p> Nome: {user.nome} </p>
+                           <p> Nome: {user.email} </p>
+                           <p> Nome: {user.nascimento} </p>
+                            <a onClick={()=> setIsEdit(true)} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Editar</a>
+                            </>
+                        )
+                        }
                     </div>
                 </div>
             )}
@@ -82,19 +115,19 @@ function Painel() {
                     </tr>
                 </thead>
                 <tbody className="font-secondary">
-                {users.map( u => (
+                {users.map( (u,i) => (
                     <tr>
                         <td>{u.nome}</td>
                         <td>{u.email}</td>
                         <td>
-                            <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-green-500' onClick={()=> updateUser(u)}>V</a>
-                            <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-red-500'>X</a>
+                            <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-green-500' onClick={()=> updateUser(i)}>V</a>
+                            <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-red-500' onClick={()=> deleteUser(i)}>X</a>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <a onClick= {() => setModal(true)} className= "rounded-full bg-primary text-white px-4 py-2 fixed bottom-0 right-0">+</a>
+            <a onClick= {() => {setModal(true); setIsEdit(true)}} className= "rounded-full bg-primary text-white px-4 py-2 fixed bottom-0 right-0">+</a>
 
         </>
 
