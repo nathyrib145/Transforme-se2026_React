@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router'
+import { supabase } from '../../utils/supabase';
 
 
 
@@ -12,6 +13,9 @@ function Painel() {
     const [logged, setlogged] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const [index, setIndex] = useState(-1)
+
+    const[spiner, setSpiner] = useState(false)
+    const [msg, setMsg] = useState('')
 
     useEffect( ()=>{
         const logged = JSON.parse(localStorage.getItem("logged"))
@@ -37,23 +41,18 @@ function Painel() {
 
     }
 
-    function handleRegister(){ 
-        let newUsers = [] 
-        if(index != -1){
-            newUsers = [...users]
-            newUsers[index] = user; 
-        }else{
-            const newUsers = [...users, user]
-            newUsers[i] = user
-        }
-        
-        setUsers(newUsers);
-        localStorage.setItem('users', JSON.stringify(newUsers));
-        setUser({})
-        setModal(false)
-        setIndex(-1)
-        setIsEdit(false)
+     async function handleRegister(){ 
+       const { data: authData, error:authError } =  await supabase.auth.signUp({
+            email: user.email,
+            password: user.senha
+        });
 
+        if (authError){
+            setMsg(authError)
+            setSpiner(false)
+            return;
+        }
+        setSpiner(false)
     }
 
     return (
@@ -88,9 +87,9 @@ function Painel() {
                             <input onChange={ (e) => setUser({...user, nascimento: e.target.value})} type="date" placeholder="DD/MM/HH" />
 
 
-                            <a onClick={handleRegister} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Registrar</a>
+                            <a onClick={handleRegister} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">{spiner? '...':'Registrar'}</a> {msg}
                            {index != -1 && <a onClick={()=> setIsEdit (false)} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Cancelar</a>}
-
+                            
                         </form>): //else 
                         (
                             <>
