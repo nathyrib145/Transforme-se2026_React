@@ -15,7 +15,7 @@ function Painel() {
     const [index, setIndex] = useState(-1)
 
     const[spiner, setSpiner] = useState(false)
-    const [msg, setMsg] = useState('')
+    const [msg, setMsg] = useState('Nao registrado')
 
     useEffect( ()=>{
         const logged = JSON.parse(localStorage.getItem("logged"))
@@ -47,12 +47,36 @@ function Painel() {
             password: user.senha
         });
 
-        if (authError){
-            setMsg(authError)
+        const { error: profileError } = await supabase.from('profiles').insert({
+            user_id: loginData.user.id,
+            nome: user.name,
+            birth: user.nascimento,
+            cpf: user.cpf
+        });
+
+        if (profileError){
+            setMsg(profileError.message);
             setSpiner(false)
             return;
         }
+
         setSpiner(false)
+        
+
+        if (authError){
+            //console.log(authError)
+            setMsg(authError.message)
+            setSpiner(false)
+            return;
+        }
+
+       
+        if(authData){
+            setMsg("Não foi possivel cadastrar, verifique sua internet")
+            setSpiner(false)
+            return;
+        }
+
     }
 
     return (
@@ -82,6 +106,9 @@ function Painel() {
 
                             Senha:
                             <input onChange={ (e) => setUser({...user, senha: e.target.value})} type="password" placeholder="Letra maiuscula e minuscula" />
+
+                             CPF:
+                            <input value = {user.CPF} onChange={ (e) => setUser({...user, CPF: e.target.value})} type="text" placeholder="Digite seu CPF" />
 
                             Data Nascimento
                             <input onChange={ (e) => setUser({...user, nascimento: e.target.value})} type="date" placeholder="DD/MM/HH" />
