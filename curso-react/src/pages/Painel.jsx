@@ -18,13 +18,20 @@ function Painel() {
     const [msg, setMsg] = useState('Nao registrado')
 
     useEffect( ()=>{
-        const logged = JSON.parse(localStorage.getItem("logged"))
-        setlogged(logged)
+       loadUsers()
     },[]);
-    useEffect( ()=>{
-        const usersTemp = JSON.parse(localStorage.getItem('users'))
-        if (usersTemp) setUsers(usersTemp)
-    },[]);
+
+    //read
+    async function loadUsers(){
+      const {data, error} = await supabase.from('profiles').select('*')
+      if(error){
+        setMsg (error.message)
+        return;
+      }
+
+      setUsers(data)
+
+    }
 
     function updateUser(indice){
         setModal(true)
@@ -41,26 +48,18 @@ function Painel() {
 
     }
 
+   
+
      async function handleRegister(){ 
+        setSpiner(true)
+        setMsg("")
        const { data: authData, error:authError } =  await supabase.auth.signUp({
             email: user.email,
             password: user.senha
         });
 
-        const { error: profileError } = await supabase.from('profiles').insert({
-            user_id: loginData.user.id,
-            nome: user.name,
-            birth: user.nascimento,
-            cpf: user.cpf
-        });
 
-        if (profileError){
-            setMsg(profileError.message);
-            setSpiner(false)
-            return;
-        }
-
-        setSpiner(false)
+   
         
 
         if (authError){
@@ -76,6 +75,29 @@ function Painel() {
             setSpiner(false)
             return;
         }
+
+        const{
+            data: loginData, error:login} = await supabase.auth.signWithPassword({
+                email: user.email,
+                password: user.senha
+            });
+
+        
+        const { error: profileError } = await supabase.from('profiles').insert({
+            user_id: loginData.user.id,
+            nome: user.name,
+            birth: user.nascimento,
+            cpf: user.cpf
+        });
+
+        if (profileError){
+            setMsg(profileError.message);
+            setSpiner(false)
+            return;
+        }
+
+        setMsg("cadastrado com sucesso!");
+        setSpiner(false)
 
     }
 
