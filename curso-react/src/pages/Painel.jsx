@@ -10,16 +10,24 @@ function Painel() {
     const [modal, setModal] = useState(false) //bollean, verdadeiro falso
     const [users, setUsers] = useState([]) //vetor
     const [user, setUser] = useState({}) //objeto
-    const [logged, setlogged] = useState({})
+    const [logged, setLogged] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const [index, setIndex] = useState(-1)
 
     const[spiner, setSpiner] = useState(false)
     const [msg, setMsg] = useState('Nao registrado')
 
-    useEffect( ()=>{
-       loadUsers()
-    },[]);
+   useEffect(
+        ()=>{
+            const logged = JSON.parse(localStorage.getItem('logged'))
+            setLogged(logged)
+        },
+        []
+    );
+
+         useEffect(()=>{
+        loadUsers()
+        },[]);
 
     //read
     async function loadUsers(){
@@ -75,10 +83,10 @@ function Painel() {
    
      async function handleRegister(){ 
         setSpiner(true)
-        setMsg("")
+        //setMsg("")
        const { data: authData, error:authError } =  await supabase.auth.signUp({
             email: user.email,
-            password: user.senha
+            password: user.password
         });
 
 
@@ -115,8 +123,9 @@ function Painel() {
             return;
         }
 
-        setMsg("cadastrado com sucesso!");
+         loadUsers()
         setSpiner(false)
+        setMsg('Cadastro do usuário feito com sucesso')
 
     }
 
