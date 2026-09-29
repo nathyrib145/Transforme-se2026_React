@@ -17,9 +17,17 @@ function Painel() {
     const[spiner, setSpiner] = useState(false)
     const {msg, setMsg} = useToast()
 
-    useEffect( ()=>{
-       loadUsers()
-    },[]);
+   useEffect(
+        ()=>{
+            const logged = JSON.parse(localStorage.getItem('logged'))
+            setLogged(logged)
+        },
+        []
+    );
+
+         useEffect(()=>{
+        loadUsers()
+        },[]);
 
     //read
     async function loadUsers() {
@@ -78,9 +86,16 @@ function Painel() {
      async function handleRegister(){ 
         const {email, password, ...dataProfile} = user
         setSpiner(true)
+<<<<<<< HEAD
        const { data: authData, error:authError } =  await supabase.auth.signUp({
             email: email,
             password: password
+=======
+        //setMsg("")
+       const { data: authData, error:authError } =  await supabase.auth.signUp({
+            email: user.email,
+            password: user.password
+>>>>>>> 134fb853d5b4b850c55668118c2bc051ae2fc2f5
         });
 
 
@@ -122,8 +137,9 @@ function Painel() {
             return;
         }
 
-        setMsg("cadastrado com sucesso!");
+         loadUsers()
         setSpiner(false)
+        setMsg('Cadastro do usuário feito com sucesso')
 
     }
 
