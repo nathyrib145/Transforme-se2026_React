@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router'
 import { supabase } from '../../utils/supabase';
-
+import { ToastSucess, useToast } from '../components/Toast';
 
 
 
@@ -10,21 +10,22 @@ function Painel() {
     const [modal, setModal] = useState(false) //bollean, verdadeiro falso
     const [users, setUsers] = useState([]) //vetor
     const [user, setUser] = useState({}) //objeto
-    const [logged, setlogged] = useState({})
+    const [logged, setLogged] = useState({})
     const [isEdit, setIsEdit] = useState(false)
     const [index, setIndex] = useState(-1)
 
     const[spiner, setSpiner] = useState(false)
-    const [msg, setMsg] = useState('Nao registrado')
+    const {msg, setMsg} = useToast()
 
     useEffect( ()=>{
        loadUsers()
     },[]);
 
     //read
-    async function loadUsers(){
+    async function loadUsers() {
       const {data, error} = await supabase.from('profiles').select('*')
-      if(error){
+      console.log('loadUsers data:', data, 'error:', error)
+      if(error) {
         setMsg (error.message)
         return;
       }
@@ -39,26 +40,27 @@ function Painel() {
         setIndex(user.id)
     }
 
-     async function deleteUser(index){
-      const { error } = await supabase
+     async function deleteUser(index) {
+      const { data, error } = await supabase
     .from('profiles')
-    .delete( user )
-    .eq('id', index);
+    .delete()
+    .eq('id', index)
     
         if (error){
             setMsg(error.message)
             setSpiner(false)
-            return
+            return;
 
         }
         loadUsers()
     }
-     async function editUser(){
+     async function editUser(user) {
         setSpiner(true)
     const { data, error } = await supabase
     .from('profiles')
-    .update( user )
-    .eq('id', index);
+    .update(user)
+    .eq('id', user.id)
+    .select()
     
     if (error){
         setMsg(error.message)
@@ -74,11 +76,11 @@ function Painel() {
 
    
      async function handleRegister(){ 
+        const {email, password, ...dataProfile} = user
         setSpiner(true)
-        setMsg("")
        const { data: authData, error:authError } =  await supabase.auth.signUp({
-            email: user.email,
-            password: user.senha
+            email: email,
+            password: password
         });
 
 
@@ -97,16 +99,21 @@ function Painel() {
             return;
         }
 
-        const{
-            data: loginData, error:loginError} = await supabase.auth.signWithPassword({
-                email: user.email,
-                password: user.password
+        const{data: loginData, error:loginError} = await supabase.auth.signWithPassword({
+                email: email,
+                password: password
             });
 
-        
+              if (loginError) {
+            setMsg("Não foi possível efetuar o login, verifique seus dados")
+            setSpiner(false)
+            return;
+        }
+
         const { error: profileError } = await supabase.from('profiles').insert({
-           ...user,
-            user_id: loginData.user.id
+           
+            user_id: loginData.user.id,
+            ...dataProfile
         });
 
         if (profileError){
@@ -168,7 +175,8 @@ function Painel() {
                             <>
                            <p> Nome: {user.name} </p>
                            <p> email: {user.email} </p>
-                           <p> CPF: {user.cpf} </p>
+                           <p> senha: {user.password} </p>
+                           <p> cpf: {user.cpf} </p>
                            <p> birth: {user.birth} </p>
                             <a onClick={()=> setIsEdit(true)} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Editar</a>
                             </>
@@ -192,6 +200,8 @@ function Painel() {
                     <tr key={u.id}>
                         <td>{u.name}</td>
                         <td>{u.email}</td>
+                        <td>{u.password}</td>
+                        <td>{u.cpf}</td>
                         <td>
                             <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-green-500' onClick={()=> updateUser(u)}>V</a>
                             <a className='cursor-pointer px-3 mx-4 houver:shadow shadow-md text-white rounded-full bg-red-500' onClick={()=> deleteUser(u)}>X</a>
@@ -201,7 +211,7 @@ function Painel() {
                 </tbody>
             </table>
             <a onClick= {() => {setModal(true); setIsEdit(true)}} className= "rounded-full bg-primary text-white px-4 py-2 fixed bottom-0 right-0">+</a>
-
+                <ToastSucess setMsg={msg}/>
         </>
 
     )
