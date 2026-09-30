@@ -32,6 +32,7 @@ function Auth() {
   }
 
     return (
+      <Template>
       <div>
         <nav className=" my-auto p-5 bg-feature rounded-lg flex ">
           <Link to="/" className="mb-5">voltar</Link>
@@ -51,6 +52,7 @@ function Auth() {
           </form>
         </div>
       </div>
+      </Template>
     );
   }
 
