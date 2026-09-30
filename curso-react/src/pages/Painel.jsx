@@ -117,7 +117,7 @@ function Painel() {
             user_id: loginData.user.id
             });
 
-              if (loginError) {
+              if (profileError) {
             setMsg(profileError.message)
             setSpiner(false)
             return;
@@ -136,7 +136,7 @@ function Painel() {
                 <div className=" fixed top-0 right-0 bottom-0 left-0 items-center flex justify-center bg-black/50 z-50 rounded  ">
                     <div id="modalRegister" className="p-5 relative max-w-md w-full rounded-lg shadow-md flex flex-col bg-red-700">
 
-                        <a onClick={() => {setModal(false); setIsEdit(false); setIndex(-1); setUser({})}} className="bg-red absolute top-0 right-0 px-2 rounded-full hover:shadow-inner-red cursor-pointer">X</a>
+                        <a onClick={() => {setModal(false); setIsEdit(false); setIndex(-1); setUser({})}} className="bg-red absolute top-0 right-0 px-2 rounded-full 			hover:shadow-inner-red cursor-pointer">X</a>
 
                         <h2>Novo Cadastro</h2>
 
@@ -168,7 +168,7 @@ function Painel() {
                             <input onChange={ (e) => setUser({...user, birth: e.target.value})} type="date" placeholder="DD/MM/HH" />
 
 
-                            <a onClick={()=>{if (index == -1) handleRegister(); else editUser()}} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">{spiner? '...':'Registrar'}</a> {msg}
+                            <a onClick={()=>{if (index == -1) handleRegister(); else editUser()}} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">				{spiner? '...':'Registrar'}</a> {msg}
                            {index != -1 && <a onClick={()=> setIsEdit (false)} className="mt-5 bg-red-500 text-white text-center rounded-md py-2">Cancelar</a>}
                             
                         </form>): //else 
@@ -190,7 +190,7 @@ function Painel() {
             <h2 className="py-2 px-4">Resposta</h2>
             <h2 className="py-2 px-4"></h2>
             <table className="py-2 px-4 mb-15">
-                <thead>
+                <thead>	
                     <tr>
                     <th className="text-white">Nome</th>
                     <th className="text-white">Email</th>
